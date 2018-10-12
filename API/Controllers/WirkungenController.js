@@ -4,10 +4,10 @@ var Nebenwirkungen = mongoose.model('Nebenwirkungen'); // Daten laden und als Va
 var Wechselwirkungen = mongoose.model('Wechselwirkungen'); // Daten laden und als Variable deklarieren
 
 exports.processRequest = function(req, res) {
-if (req.body.result.action == "bot_ww") {
+if (req.body.queryResult.action == "bot_ww") {
     getWW(req,res)
   }
-  else if (req.body.result.action == "bot_nw")
+  else if (req.body.queryResult.action == "bot_nw")
   {
       getNW(req,res)
   }
@@ -15,7 +15,7 @@ if (req.body.result.action == "bot_ww") {
 
 function getNW(req,res)
 {
-let nwToSearch = req.body.result && req.body.result.parameters && req.body.result.parameters.Medikamente_Stoffe ? req.body.result.parameters.Medikamente_Stoffe : 'Unknown';
+let nwToSearch = req.body.queryResult && req.body.queryResult.parameters && req.body.queryResult.parameters.Medikamente_Stoffe ? req.body.queryResult.parameters.Medikamente_Stoffe : 'Unknown';
 Nebenwirkungen.findOne({name:nwToSearch},function(err,nwExists)
       {
         if (err)
