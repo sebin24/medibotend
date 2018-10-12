@@ -39,9 +39,9 @@ if (nwExists)
               "messages" : [
                 {
                 "speech": 'Ich habe keine Nebenwirkungen in meiner Datenbank gefunden.',
-                "displayText": 'Ich habe keine Nebenwirkungen in meiner Datenbank gefunden.',
                 "type": 0
-                }]
+                }
+              ]
             });
         }
       });
