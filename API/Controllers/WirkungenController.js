@@ -25,14 +25,14 @@ function getNW(req,res)
     }
     if (result){
       return res.json({
-        "fulfillmentText": result.description+"\n"+ Warnung
+        "fulfillmentText": result.description+"\n\n"+ Warnung
       });
     }
 
     else {
       return res.json({
         "fulfillmentText": "Ich habe keine Nebenwirkungen zu "+req.body.queryResult.parameters.Medikamente_Stoffe+
-        " in meiner Datenbank gefunden."+"\n" + Warnung
+        " in meiner Datenbank gefunden."+"\n\n" + Warnung
       });
     }
   });
@@ -50,13 +50,13 @@ function getWW(req,res)
     }
     else if (result){
       return res.json({
-        "fulfillmentText": result.description +"\n"+ Warnung
+        "fulfillmentText": result.description +"\n\n"+ Warnung
       });
     }
     else {
       return res.json({
         "fulfillmentText": "Ich habe keine Wechselwirkungen zu "+req.body.queryResult.parameters.Medikamente_Stoffe+
-        " in meiner Datenbank gefunden."+ "\n" + Warnung
+        " in meiner Datenbank gefunden."+ "\n\n" + Warnung
       });
     }
   });
