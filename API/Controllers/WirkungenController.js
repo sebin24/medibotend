@@ -36,9 +36,12 @@ if (nwExists)
         }
         else {
           return res.json({
-                speech: 'Ich habe keine Nebenwirkungen in meiner Datenbank gefunden.',
-                displayText: 'Ich habe keine Nebenwirkungen in meiner Datenbank gefunden.',
-                source: 'Nebenwirkungen'
+              "messages" : [
+                {
+                "speech": 'Ich habe keine Nebenwirkungen in meiner Datenbank gefunden.',
+                "displayText": 'Ich habe keine Nebenwirkungen in meiner Datenbank gefunden.',
+                "source": 'Nebenwirkungen'
+                }]
             });
         }
       });
