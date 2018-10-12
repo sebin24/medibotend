@@ -17,31 +17,31 @@ exports.processRequest = function(req, res) { //unterscheidung welche Aktion geb
 function getNW(req,res) // Nebenwirkungen in der DB suchen
 {
   let nwToSearch = req.body.queryResult && req.body.queryResult.parameters && req.body.queryResult.parameters.Medikamente_Stoffe ? req.body.queryResult.parameters.Medikamente_Stoffe : 'Unknown';
-  Nebenwirkungen.findOne({name:nwToSearch},function(err,result){
+  Nebenwirkungen.findOne({name:nwToSearch},function(err,result){ // suchen nach Eintrag in der DB (klappt nicht)
     if (err){
         return res.json({
-          "fulfillmentText": "Irgendetwas ist scheif gelaufen."
+          "fulfillmentText": "Irgendetwas ist scheif gelaufen." // bei fehler
         });
     }
     if (result){
       return res.json({
-        "fulfillmentText": result.description+"\n\n"+ Warnung
+        "fulfillmentText": result.description+"\n\n"+ Warnung //Ausgabe der Nebenwirkungen, wenn eintrag gefunden.
       });
     }
 
     else {
       return res.json({
         "fulfillmentText": "Ich habe keine Nebenwirkungen zu "+req.body.queryResult.parameters.Medikamente_Stoffe+
-        " in meiner Datenbank gefunden."+"\n\n" + Warnung
+        " in meiner Datenbank gefunden."+"\n\n" + Warnung //Ausgabe, wenn kein Eintrag gefunden.
       });
     }
   });
 
 }
 
-function getWW(req,res) //Wechselwirkungen in der DB suchen (in der entwicklung)
+function getWW(req,res) //Wechselwirkungen in der DB suchen (in der entwicklung, wie getNW) 
 {
-  let wwToSearch = req.body.queryResult.parameters.Medikamente_Stoffe + "und" +req.body.queryResult.parameters.Medikamente_Stoffe1 || req.body.queryResult.parameters.Medikamente_Stoffe1 + "und" +req.body.queryResult.parameters.Medikamente_Stoffe;
+  let wwToSearch = req.body.queryResult.parameters.Medikamente_Stoffe + " und " +req.body.queryResult.parameters.Medikamente_Stoffe1 || req.body.queryResult.parameters.Medikamente_Stoffe1 + " und " +req.body.queryResult.parameters.Medikamente_Stoffe;
   Wechselwirkungen.findOne({name: wwToSearch}, function(err,result){
     if (err){
         return res.json({
@@ -55,7 +55,7 @@ function getWW(req,res) //Wechselwirkungen in der DB suchen (in der entwicklung)
     }
     else {
       return res.json({
-        "fulfillmentText": "Ich habe keine Wechselwirkungen zu "+req.body.queryResult.parameters.Medikamente_Stoffe+"und"+req.body.queryResult.parameters.Medikamente_Stoffe1+
+        "fulfillmentText": "Ich habe keine Wechselwirkungen zu "+req.body.queryResult.parameters.Medikamente_Stoffe+" und "+req.body.queryResult.parameters.Medikamente_Stoffe1+
         " in meiner Datenbank gefunden."+ "\n\n" + Warnung
       });
     }
