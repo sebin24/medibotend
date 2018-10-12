@@ -14,5 +14,6 @@ online.use(bodyParser.urlencoded({ extended: true })); //Parser um
 online.use(bodyParser.json());//                         JSON-Datei zu lesen
 var routes = require('./API/Routes/Routes'); //importieren von route
 routes(online); //registrieren von route
-online.listen(PORT, () => console.log(`Listening on ${ PORT }`)) // benutzter port und bestätigungs Nachricht
-;
+online.listen(PORT, () => {
+    console.log(`Online auf ${ PORT }`);
+}); // benutzter port und bestätigungs Nachricht;
