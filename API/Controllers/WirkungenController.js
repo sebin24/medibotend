@@ -15,7 +15,7 @@ if (req.body.result.action == "bot_ww") {
 
 function getNW(req,res)
 {
-let nwToSearch = req.body.result && req.body.result.parameters && req.body.result.parameters.nw ? req.body.result.parameters.nw : 'Unknown';
+let nwToSearch = req.body.result && req.body.result.parameters && req.body.result.parameters.Medikamente_Stoffe ? req.body.result.parameters.Medikamente_Stoffe : 'Unknown';
 Nebenwirkungen.findOne({name:nwToSearch},function(err,nwExists)
       {
         if (err)
