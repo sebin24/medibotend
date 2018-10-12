@@ -16,7 +16,7 @@ exports.processRequest = function(req, res) { //unterscheidung welche Aktion geb
 
 function getNW(req,res) // Nebenwirkungen in der DB suchen
 {
-  let nwToSearch = req.body.queryResult && req.body.queryResult.parameters && req.body.queryResult.parameters.Medikamente_Stoffe ? req.body.queryResult.parameters.Medikamente_Stoffe : 'Unknown';
+  let nwToSearch = req.body.queryResult.parameters.Medikamente_Stoffe;
   Nebenwirkungen.findOne({name:nwToSearch},function(err,result){ // suchen nach Eintrag in der DB (klappt nicht)
     if (err){
         return res.json({
@@ -39,7 +39,7 @@ function getNW(req,res) // Nebenwirkungen in der DB suchen
 
 }
 
-function getWW(req,res) //Wechselwirkungen in der DB suchen (in der entwicklung, wie getNW) 
+function getWW(req,res) //Wechselwirkungen in der DB suchen (in der entwicklung, wie getNW)
 {
   let wwToSearch = req.body.queryResult.parameters.Medikamente_Stoffe + " und " +req.body.queryResult.parameters.Medikamente_Stoffe1 || req.body.queryResult.parameters.Medikamente_Stoffe1 + " und " +req.body.queryResult.parameters.Medikamente_Stoffe;
   Wechselwirkungen.findOne({name: wwToSearch}, function(err,result){
