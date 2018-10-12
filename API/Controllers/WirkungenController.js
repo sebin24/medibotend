@@ -40,7 +40,7 @@ if (nwExists)
                 {
                 "speech": 'Ich habe keine Nebenwirkungen in meiner Datenbank gefunden.',
                 "displayText": 'Ich habe keine Nebenwirkungen in meiner Datenbank gefunden.',
-                "source": 'Nebenwirkungen'
+                "type": 0
                 }]
             });
         }
