@@ -2,6 +2,7 @@
 var mongoose = require('mongoose');
 var Nebenwirkungen = mongoose.model('Nebenwirkungen'); // Daten laden und als Variable deklarieren
 var Wechselwirkungen = mongoose.model('Wechselwirkungen'); // Daten laden und als Variable deklarieren
+var Warnung = "Mithilfe dieser Datenbank können Sie sich über Arzneimittel und deren Wechselwirkungen informieren. Die medizinische Wissenschaft entwickelt sich ständig weiter. Neue Informationen finden nur mit zeitlicher Verzögerung Eingang in diese Datenbank. Lesen Sie daher immer die aktuelle Gebrauchsinformation, die Ihrem Medikament beiliegt, vollständig durch und fragen Sie Ihren Arzt oder Apotheker. Die Informationen dieser Datenbank sind nicht vollständig. Nicht jede Information ist für jeden Patienten relevant. Die Datenbank ersetzt daher nicht den Arztbesuch und nicht die Beratung durch den Apotheker."
 
 exports.processRequest = function(req, res) {
   if (req.body.queryResult.action == "bot_ww") {
@@ -16,21 +17,22 @@ exports.processRequest = function(req, res) {
 function getNW(req,res)
 {
   let nwToSearch = req.body.queryResult && req.body.queryResult.parameters && req.body.queryResult.parameters.Medikamente_Stoffe ? req.body.queryResult.parameters.Medikamente_Stoffe : 'Unknown';
-  Nebenwirkungen.findOne({name:nwToSearch},function(err,nwExists){
+  Nebenwirkungen.findOne({name:nwToSearch},function(err,result){
     if (err){
         return res.json({
-          "fulfillmentText": nwExist.decription,
+          "fulfillmentText": "Irgendetwas ist scheif gelaufen."
         });
     }
-    if (nwExists){
+    if (result){
       return res.json({
-        "fulfillmentText": nwExist.decription,
+        "fulfillmentText": result.description+"\n"+ Warnung
       });
     }
 
     else {
       return res.json({
-        "fulfillmentText": "Ich habe keine Nebenwirkungen in meiner Datenbank gefunden."
+        "fulfillmentText": "Ich habe keine Nebenwirkungen zu "+req.body.queryResult.parameters.Medikamente_Stoffe+
+        " in meiner Datenbank gefunden."+"\n" + Warnung
       });
     }
   });
@@ -39,31 +41,25 @@ function getNW(req,res)
 
 function getWW(req,res)
 {
-let wwToSearch = req.body.result && req.body.result.parameters && req.body.result.parameters.ww ? req.body.result.parameters.ww : 'Unknown';
-Wechselwirkungen.findOne({name:wwToSearch},function(err,wwExists)
-      {
-        if (err)
-        {
-          return res.json({
-              speech: 'Etwas ist schiefgelaufen!',
-              displayText: 'Etwas ist schiefgelaufen!',
-              source: 'Wechselwirkungen'
-          });
-        }
-if (wwExists)
-        {
-          return res.json({
-                speech: wwExists.description,
-                displayText: wwExists.description,
-                source: 'Wechselwirkungen'
-            });
-        }
-        else {
-          return res.json({
-                speech: 'Ich habe keine Wechselwirkungen in meiner Datenbank gefunden.',
-                displayText: 'Ich habe keine Wechselwirkungen in meiner Datenbank gefunden.',
-                source: 'Wechselwirkungen'
-            });
-        }
+  let wwToSearch = req.body.queryResult.parameters.Medikamente_Stoffe;
+  Wechselwirkungen.findOne({name: wwToSearch}, function(err,result){
+    if (err){
+        return res.json({
+          "fulfillmentText": "Irgendetwas ist schief gelaufen.",
+        });
+    }
+    else if (result){
+      return res.json({
+        "fulfillmentText": result.description +"\n"+ Warnung
       });
+    }
+    else {
+      return res.json({
+        "fulfillmentText": "Ich habe keine Wechselwirkungen zu "+req.body.queryResult.parameters.Medikamente_Stoffe+
+        " in meiner Datenbank gefunden."+ "\n" + Warnung
+      });
+    }
+  });
+
+
 }
