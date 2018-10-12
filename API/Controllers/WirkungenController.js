@@ -38,9 +38,9 @@ if (nwExists)
           return res.json({
               "fulfillmentMessages" : [
                 {
-                "text": "Ich habe keine Nebenwirkungen in meiner Datenbank gefunden."
+                "text":[ "Ich habe keine Nebenwirkungen in meiner Datenbank gefunden."],
                 }
-              ]
+              ],
             });
         }
       });
