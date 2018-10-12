@@ -36,10 +36,11 @@ if (nwExists)
         }
         else {
           return res.json({
-              "messages" : [
+              "fulfillmentMessages" : [
                 {
-                "speech": 'Ich habe keine Nebenwirkungen in meiner Datenbank gefunden.',
-                "type": 0
+                "text":[
+                    "Ich habe keine Nebenwirkungen in meiner Datenbank gefunden."
+                  ]
                 }
               ]
             });
