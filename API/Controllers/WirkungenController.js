@@ -36,11 +36,12 @@ if (nwExists)
         }
         else {
           return res.json({
-              "fulfillmentMessages" : [
+              "fulfillmentText": "lol"
+              /*"fulfillmentMessages" : [
                 {
                 "text":[ "Ich habe keine Nebenwirkungen in meiner Datenbank gefunden."],
                 }
-              ],
+              ],*/
             });
         }
       });
